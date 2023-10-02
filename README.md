@@ -1,15 +1,8 @@
-# task-tracker
+# Task Tracker
+
+## [![Java CI with Maven](https://github.com/Arkantrust/task-tracker/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/Arkantrust/task-tracker/actions/workflows/maven.yml)
+
 Task Tracker is a to-do app that lets you organize your tasks.
-
-[![Java CI with Maven](https://github.com/Arkantrust/task-tracker/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/Arkantrust/task-tracker/actions/workflows/maven.yml)
-
-## [Requirements](https://docs.google.com/document/d/1bUBshSkx8HD5boQoSkGWdruNlDM0Ph8V/edit?usp=sharing&ouid=111096634640690343738&rtpof=true&sd=true)
-
-## Prerequisites
-
-- [Java](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
-
-- [Maven](https://maven.apache.org/download.cgi)
 
 ## Developers
 
@@ -19,6 +12,14 @@ Task Tracker is a to-do app that lets you organize your tasks.
 | Nicolas Cardona | A00373470 | [NicolasC101](https://github.com/NicolasC101) |
 | Juan Eraso | A00399655 | [JuanEstebanEraso](https://github.com/JuanEstebanEraso) |
 
+
+## [Requirements](https://docs.google.com/document/d/1bUBshSkx8HD5boQoSkGWdruNlDM0Ph8V/edit?usp=sharing&ouid=111096634640690343738&rtpof=true&sd=true)
+
+## Prerequisites
+
+  - [Java](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
+
+  - [Maven](https://maven.apache.org/download.cgi)
 
 ## Features
 
