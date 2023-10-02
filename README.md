@@ -5,7 +5,9 @@ Task Tracker is a to-do app that lets you organize your tasks.
 
 ## Prerequisites
 
-- TBD
+- [Java](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
+
+- [Maven](https://maven.apache.org/download.cgi)
 
 ## Developers
 
