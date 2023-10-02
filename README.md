@@ -53,3 +53,9 @@ Task Tracker is a to-do app that lets you organize your tasks.
 - Sort tasks by priority
 
 - Sort tasks by status
+
+## Running the app
+
+``` bash
+mvn javafx:run
+```
