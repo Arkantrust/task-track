@@ -6,7 +6,7 @@ Task Tracker is a to-do app that lets you organize your tasks.
 
 ## Developers
 
-| Name | ID | Github |
+| Name | Github |
 | --- | --- | --- |
 | David Dulce | [Arkantrust](https://github.com/Arkantrust) |
 | Nicolas Cardona | [NicolasC101](https://github.com/NicolasC101) |
