@@ -8,9 +8,9 @@ Task Tracker is a to-do app that lets you organize your tasks.
 
 | Name | ID | Github |
 | --- | --- | --- |
-| David Dulce | A00398802 | [Arkantrust](https://github.com/Arkantrust) |
-| Nicolas Cardona | A00373470 | [NicolasC101](https://github.com/NicolasC101) |
-| Juan Eraso | A00399655 | [JuanEstebanEraso](https://github.com/JuanEstebanEraso) |
+| David Dulce | [Arkantrust](https://github.com/Arkantrust) |
+| Nicolas Cardona | [NicolasC101](https://github.com/NicolasC101) |
+| Juan Eraso | [JuanEstebanEraso](https://github.com/JuanEstebanEraso) |
 
 
 ## [Requirements](https://docs.google.com/document/d/1bUBshSkx8HD5boQoSkGWdruNlDM0Ph8V/edit?usp=sharing&ouid=111096634640690343738&rtpof=true&sd=true)
