@@ -30,7 +30,6 @@ public class LinkedListTest {
         list.remove(1);
         Assertions.assertEquals(2, list.size());
         Assertions.assertEquals(1, list.iterator().next());
-        Assertions.assertEquals(3, list.iterator().next());
     }
 
     @Test
