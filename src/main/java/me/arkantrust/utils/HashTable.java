@@ -1,54 +1,22 @@
 package me.arkantrust.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-class HashNode<K, V>{
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class Bucket<K, V> {
 
     private K key;
-    private V value; //This can be the information of the task
-    private HashNode<K,V> next;
-    
-    public HashNode(K key, V value) {
-    
-        this.key = key;
-        this.value = value;
-    
-    }
+    private V value;
+    private Bucket<K, V> next;
 
-    public K getKey() {
-    
-        return key;
-    
-    }
-    
-    public void setKey(K key) {
-    
-        this.key = key;
-    
-    }
-    
-    public V getValue() {
-    
-        return value;
-    
-    }
-    
-    public void setValue(V value) {
-    
-        this.value = value;
-    
-    }
-
-    public HashNode<K, V> getNext() {
-        return next;
-    }
-
-    public void setNext(HashNode<K, V> next) {
-        this.next = next;
-    }
 }
 
 public class HashTable<K, V> {
-    private HashNode<K, V>[] buckets;
+    private Bucket<K, V>[] buckets;
     private int numOfBuckets; // capacity of HashTable
     private int size; // number of values stored
 
@@ -58,13 +26,13 @@ public class HashTable<K, V> {
 
     public HashTable(int capacity) {
         this.numOfBuckets = capacity;
-        buckets = new HashNode[capacity];
+        buckets = new Bucket[capacity];
         this.size = 0;
     }
 
     public int getBucketIndex(K key) {
         int hashCode = key.hashCode();
-        return Math.abs(hashCode) % numOfBuckets; //temporary module function
+        return Math.abs(hashCode) % numOfBuckets; // temporary module function
     }
 
     public int getSize() {
@@ -80,7 +48,7 @@ public class HashTable<K, V> {
             throw new IllegalArgumentException("Key or value is null");
         }
         int bucketIndex = getBucketIndex(key);
-        HashNode<K, V> head = this.buckets[bucketIndex];
+        Bucket<K, V> head = this.buckets[bucketIndex];
         boolean flag = false;
         while (head != null && !flag) {
             if (head.getKey().equals(key)) {
@@ -92,21 +60,21 @@ public class HashTable<K, V> {
         if (!flag) {
             this.size++;
             head = buckets[bucketIndex];
-            HashNode<K, V> node = new HashNode<>(key, value);
+            Bucket<K, V> node = new Bucket<>(key, value);
             node.setNext(head);
             buckets[bucketIndex] = node;
         }
     }
 
     public V getValue(K key) {
-        if(key == null){
+        if (key == null) {
             throw new IllegalArgumentException("The key is null");
         }
         int bucketIndex = getBucketIndex(key);
         V value = null;
-        HashNode<K, V> head = buckets[bucketIndex];
+        Bucket<K, V> head = buckets[bucketIndex];
         boolean found = false;
-        while(head != null && !found){
+        while (head != null && !found) {
             if (head.getKey().equals(key)) {
                 value = head.getValue();
                 found = true;
@@ -117,28 +85,28 @@ public class HashTable<K, V> {
     }
 
     public V removeValue(K key) {
-        if(key == null){
+        if (key == null) {
             throw new IllegalArgumentException("The key is null");
         }
         int bucketIndex = getBucketIndex(key);
         V value = null;
-        HashNode<K, V> head = buckets[bucketIndex];
-        HashNode<K, V> previous = null;
-        while(head != null){
+        Bucket<K, V> head = buckets[bucketIndex];
+        Bucket<K, V> previous = null;
+        while (head != null) {
             if (head.getKey().equals(key)) {
                 break;
             }
             previous = head;
             head = head.getNext();
         }
-        if(head == null){
+        if (head == null) {
             value = null;
-        }else{
+        } else {
             this.size--;
-            if(previous != null){
+            if (previous != null) {
                 previous.setNext(head.getNext());
-            }else{
-                buckets[bucketIndex] = head.getNext(); //deleting the head (first element) of this hash bucket
+            } else {
+                buckets[bucketIndex] = head.getNext(); // deleting the head (first element) of this hash bucket
             }
             value = head.getValue();
         }
