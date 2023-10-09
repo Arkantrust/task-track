@@ -1,4 +1,52 @@
-package model;
+package me.arkantrust.utils;
+
+
+class HashNode<K, V>{
+
+    private K key;
+    private V value; //This can be the information of the task
+    private HashNode<K,V> next;
+    
+    public HashNode(K key, V value) {
+    
+        this.key = key;
+        this.value = value;
+    
+    }
+
+    public K getKey() {
+    
+        return key;
+    
+    }
+    
+    public void setKey(K key) {
+    
+        this.key = key;
+    
+    }
+    
+    public V getValue() {
+    
+        return value;
+    
+    }
+    
+    public void setValue(V value) {
+    
+        this.value = value;
+    
+    }
+
+    public HashNode<K, V> getNext() {
+        return next;
+    }
+
+    public void setNext(HashNode<K, V> next) {
+        this.next = next;
+    }
+}
+
 public class HashTable<K, V> {
     private HashNode<K, V>[] buckets;
     private int numOfBuckets; // capacity of HashTable
@@ -44,7 +92,7 @@ public class HashTable<K, V> {
         if (!flag) {
             this.size++;
             head = buckets[bucketIndex];
-            HashNode<K, V> node = new HashNode(key, value);
+            HashNode<K, V> node = new HashNode<>(key, value);
             node.setNext(head);
             buckets[bucketIndex] = node;
         }
