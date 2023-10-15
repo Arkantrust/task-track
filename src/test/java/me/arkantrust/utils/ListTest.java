@@ -1,6 +1,6 @@
 package me.arkantrust.utils;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +22,10 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertEquals(3, list.size());
-        Assertions.assertEquals(1, list.get(0));
-        Assertions.assertEquals(2, list.get(1));
-        Assertions.assertEquals(3, list.get(2));
+        assertEquals(3, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
 
     }
 
@@ -35,21 +35,21 @@ public class ListTest {
         list.add(1);
         list.add(2);
         list.add(3);
-        Assertions.assertEquals(3, list.size());
+        assertEquals(3, list.size());
 
         list.remove(1);
-        Assertions.assertEquals(2, list.size());
-        Assertions.assertEquals(1, list.get(0));
-        Assertions.assertEquals(3, list.get(1));
+        assertEquals(2, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(3, list.get(1));
 
     }
 
     @Test
     public void testIsEmpty() {
 
-        Assertions.assertTrue(list.isEmpty());
+        assertTrue(list.isEmpty());
         list.add(1);
-        Assertions.assertFalse(list.isEmpty());
+        assertFalse(list.isEmpty());
 
     }
 
@@ -60,20 +60,20 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertEquals(1, list.get(0));
-        Assertions.assertEquals(2, list.get(1));
-        Assertions.assertEquals(3, list.get(2));
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
 
     }
 
     @Test
     public void testSize() {
 
-        Assertions.assertEquals(0, list.size());
+        assertEquals(0, list.size());
         list.add(1);
         list.add(2);
         list.add(3);
-        Assertions.assertEquals(3, list.size());
+        assertEquals(3, list.size());
 
     }
 
@@ -85,8 +85,8 @@ public class ListTest {
         list.add(3);
         list.clear();
 
-        Assertions.assertEquals(0, list.size());
-        Assertions.assertTrue(list.isEmpty());
+        assertEquals(0, list.size());
+        assertTrue(list.isEmpty());
 
     }
 
@@ -98,10 +98,10 @@ public class ListTest {
         list.add(3);
         list.set(1, 4);
 
-        Assertions.assertEquals(3, list.size());
-        Assertions.assertEquals(1, list.get(0));
-        Assertions.assertEquals(4, list.get(1));
-        Assertions.assertEquals(3, list.get(2));
+        assertEquals(3, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(4, list.get(1));
+        assertEquals(3, list.get(2));
 
     }
 
@@ -112,8 +112,8 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertTrue(list.contains(2));
-        Assertions.assertFalse(list.contains(4));
+        assertTrue(list.contains(2));
+        assertFalse(list.contains(4));
 
     }
 
@@ -124,8 +124,8 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertEquals(1, list.indexOf(2));
-        Assertions.assertEquals(-1, list.indexOf(4));
+        assertEquals(1, list.indexOf(2));
+        assertEquals(-1, list.indexOf(4));
 
     }
 
@@ -136,7 +136,7 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertEquals(1, list.getFirst());
+        assertEquals(1, list.getFirst());
 
     }
 
@@ -147,7 +147,7 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        Assertions.assertEquals(3, list.getLast());
+        assertEquals(3, list.getLast());
 
     }
 
@@ -166,7 +166,7 @@ public class ListTest {
 
         }
 
-        Assertions.assertEquals(6, sum);
+        assertEquals(6, sum);
 
     }
 
