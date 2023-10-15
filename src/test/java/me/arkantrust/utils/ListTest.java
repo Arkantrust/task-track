@@ -16,6 +16,15 @@ public class ListTest {
     }
 
     @Test
+    public void testIsEmpty() {
+
+        assertTrue(list.isEmpty());
+        list.add(1);
+        assertFalse(list.isEmpty());
+
+    }
+
+    @Test
     public void testAdd() {
 
         list.add(1);
@@ -33,23 +42,44 @@ public class ListTest {
     public void testRemove() {
 
         list.add(1);
+
+        list.remove(0);
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testRemoveFirst() {
+
+        list.add(1);
         list.add(2);
         list.add(3);
-        assertEquals(3, list.size());
 
-        list.remove(1);
+        list.remove(0);
         assertEquals(2, list.size());
-        assertEquals(1, list.get(0));
-        assertEquals(3, list.get(1));
+
+        list.remove(0);
+        assertEquals(1, list.size());
+
+        list.remove(0);
+        assertTrue(list.isEmpty());
 
     }
 
     @Test
-    public void testIsEmpty() {
+    public void testRemoveLast() {
 
-        assertTrue(list.isEmpty());
         list.add(1);
-        assertFalse(list.isEmpty());
+        list.add(2);
+        list.add(3);
+
+        list.remove(2);
+        assertEquals(2, list.size());
+
+        list.remove(1);
+        assertEquals(1, list.size());
+
+        list.remove(0);
+        assertTrue(list.isEmpty());
 
     }
 
@@ -136,7 +166,7 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        assertEquals(1, list.getFirst());
+        assertEquals(1, list.first());
 
     }
 
@@ -147,7 +177,7 @@ public class ListTest {
         list.add(2);
         list.add(3);
 
-        assertEquals(3, list.getLast());
+        assertEquals(3, list.last());
 
     }
 

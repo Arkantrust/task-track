@@ -28,7 +28,6 @@ public class StackTest {
     @Test
     public void testPop() {
 
-        Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);
         stack.push(3);
@@ -53,23 +52,9 @@ public class StackTest {
     }
 
     @Test
-    public void testIsEmpty() {
+    public void testCheckEmpty() {
 
-        Stack<Integer> stack = new Stack<>();
-
-        assertTrue(stack.isEmpty());
-
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-
-        assertFalse(stack.isEmpty());
-
-        stack.pop();
-        stack.pop();
-        stack.pop();
-
-        assertTrue(stack.isEmpty());
+        assertThrows(IllegalStateException.class, () -> stack.peek());
 
     }
     

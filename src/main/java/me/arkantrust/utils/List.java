@@ -3,11 +3,14 @@ package me.arkantrust.utils;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class List<T> implements Iterable<T> {
+public class List<E> implements Iterable<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] data;
     private int size;
+
+    private E first;
+    private E last;
 
     public List() {
 
@@ -22,28 +25,15 @@ public class List<T> implements Iterable<T> {
 
     }
 
-    public void add(T element) {
+    public E first() {
 
-        ensureCapacity();
-        data[size++] = element;
+        return this.first;
 
     }
 
-    public void remove(int index) {
+    public E last() {
 
-        if (index < 0 || index >= size) {
-
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-
-        }
-
-        for (int i = index; i < size - 1; i++) {
-
-            data[i] = data[i + 1];
-
-        }
-
-        size--;
+        return this.last;
 
     }
 
@@ -53,26 +43,9 @@ public class List<T> implements Iterable<T> {
 
     }
 
-    @SuppressWarnings("unchecked")
-    public T get(int index) {
-
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-
-        return (T) data[index];
-
-    }
-
     public int size() {
 
         return size;
-
-    }
-
-    private void ensureCapacity() {
-
-        if (size == data.length)
-            data = Arrays.copyOf(data, data.length * 2);
 
     }
 
@@ -80,19 +53,128 @@ public class List<T> implements Iterable<T> {
 
         this.data = new Object[DEFAULT_CAPACITY];
         this.size = 0;
+        this.first = null;
+        this.last = null;
 
     }
 
-    public void set(int index, T element) {
+    @Override
+    public Iterator<E> iterator() {
 
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        return new ListIterator();
+
+    }
+
+    private class ListIterator implements Iterator<E> {
+
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+
+            return currentIndex < size;
+
+        }
+
+        @Override
+        public E next() {
+
+            if (!hasNext())
+                throw new java.util.NoSuchElementException();
+
+            return get(currentIndex++);
+
+        }
+
+    }
+
+    public void add(E element) {
+
+        if (element == null)
+            throw new IllegalArgumentException("Element cannot be null.");
+
+        if (this.size == data.length)
+            data = Arrays.copyOf(data, data.length * 2);
+
+        if (this.size == 0) {
+
+            this.first = element;
+            this.last = element;
+
+        } else {
+
+            this.last = element;
+
+        }
+
+        data[size++] = element;
+
+    }
+
+    private void checkIndex(int index) {
+
+        if (index < 0 || index > this.size - 1 || this.size == 0)
+            throw new IndexOutOfBoundsException("Index" + index + " out of bounds for size " + this.size + ".");
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public E get(int index) {
+
+        checkIndex(index);
+
+        if (index == 0)
+            return this.first;
+
+        else if (index == this.size - 1)
+            return this.last;
+
+        return (E) data[index];
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public void remove(int index) {
+
+        checkIndex(index);
+
+        if (index == this.size - 1) {
+
+            data[index] = null;
+            size--;
+
+            if (!isEmpty())
+                this.last = (E) data[this.size - 1];
+
+        } else {
+
+            for (int i = index; i < this.size - 1; i++) {
+
+                data[i] = data[i + 1];
+
+            }
+
+            this.first = (E) data[0];
+            this.last = (E) data[this.size - 1];
+
+            size--;
+
+        }
+
+    }
+
+    public void set(int index, E element) {
+
+        checkIndex(index);
 
         data[index] = element;
 
     }
 
-    public boolean contains(T element) {
+    public boolean contains(E element) {
+
+        if (element == null)
+            throw new IllegalArgumentException("Element cannot be null.");
 
         for (int i = 0; i < size; i++) {
 
@@ -105,7 +187,7 @@ public class List<T> implements Iterable<T> {
 
     }
 
-    public int indexOf(T element) {
+    public int indexOf(E element) {
 
         for (int i = 0; i < size; i++) {
 
@@ -115,50 +197,6 @@ public class List<T> implements Iterable<T> {
         }
 
         return -1;
-
-    }
-
-    @SuppressWarnings("unchecked")
-    public T getFirst() {
-
-        return (T) data[0];
-
-    }
-
-    @SuppressWarnings("unchecked")
-    public T getLast() {
-
-        return (T) data[size - 1];
-
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-
-        return new DynamicArrayIterator();
-
-    }
-
-    private class DynamicArrayIterator implements Iterator<T> {
-
-        private int currentIndex = 0;
-
-        @Override
-        public boolean hasNext() {
-
-            return currentIndex < size;
-
-        }
-
-        @Override
-        public T next() {
-
-            if (!hasNext())
-                throw new java.util.NoSuchElementException();
-
-            return get(currentIndex++);
-
-        }
 
     }
 

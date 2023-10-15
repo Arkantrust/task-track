@@ -1,8 +1,8 @@
 package me.arkantrust.utils;
 
-public class Stack<T> {
+public class Stack<E> {
 
-    private List<T> stack;
+    private List<E> stack;
 
     public Stack() {
 
@@ -16,29 +16,34 @@ public class Stack<T> {
 
     }
 
-    public void push(T element) {
+    public void push(E element) {
 
         stack.add(element);
 
     }
 
-    public T pop() {
+    public void checkEmpty() {
 
         if (isEmpty())
             throw new IllegalStateException("Stack is empty.");
-
-        T element = stack.getLast();
-        stack.remove(stack.size() - 1);
-        return element;
 
     }
 
-    public T peek() {
+    public E pop() {
 
-        if (isEmpty())
-            throw new IllegalStateException("Stack is empty.");
+        checkEmpty();
 
-        return stack.getLast();
+        E top = stack.last();
+        stack.remove(stack.size() - 1);
+        return top;
+
+    }
+
+    public E peek() {
+
+        checkEmpty();
+        
+        return stack.last();
 
     }
 
