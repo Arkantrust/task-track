@@ -10,6 +10,12 @@ public class Stack<T> {
 
     }
 
+    public int size() {
+
+        return stack.size();
+
+    }
+
     public void push(T element) {
 
         stack.add(element);
