@@ -1,3 +1,26 @@
+/*
+    -background: #121212;  Dark background
+    -surface: #1E1E1E; Slightly lighter surface
+    -primary: #2196F3; Blue primary
+    -secondary: #64B5F6; Lighter blue
+    -on-background: white; Text on background
+    -on-surface: white; Text on surface
+    -on-primary: white; Text on primary
+    -on-secondary: black; Text on secondary
+    -error: #FF5252; Red error
+    -on-error: white; Text on the error
+*/
+
+.root {
+    -fx-background-color: #121212;
+}
+
 .button {
-    -fx-text-fill: blue;
+    -fx-background-color: #2196F3;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #64B5F6;
 }
