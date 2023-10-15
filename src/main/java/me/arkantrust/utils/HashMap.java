@@ -49,8 +49,6 @@ public class HashMap<K, V> {
 
         int hashCode = key.hashCode();
 
-        // Temporary function
-        // TODO: Investigate linear probing
         return Math.abs(hashCode) % bucketsCount;
 
     }
@@ -156,7 +154,7 @@ public class HashMap<K, V> {
 
         }
 
-        return value; // TODO: Implementar???? @NicolasC101
+        return value;
 
     }
 
