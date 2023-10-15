@@ -7,7 +7,7 @@ Task Tracker is a to-do app that lets you organize your tasks.
 ## Developers
 
 | Name | Github |
-| --- | --- | --- |
+| --- | --- |
 | David Dulce | [Arkantrust](https://github.com/Arkantrust) |
 | Nicolas Cardona | [NicolasC101](https://github.com/NicolasC101) |
 | Juan Eraso | [JuanEstebanEraso](https://github.com/JuanEstebanEraso) |
@@ -17,7 +17,7 @@ Task Tracker is a to-do app that lets you organize your tasks.
 
 ## Prerequisites
 
-  - [Java](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
+  - [Java](https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html)
 
   - [Maven](https://maven.apache.org/download.cgi)
 

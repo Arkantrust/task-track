@@ -14,9 +14,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
+        
         scene = new Scene(loadFXML("primary"));
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+
+        stage.setTitle("Task Tracker");
+        stage.setHeight(600);
+        stage.setWidth(800);
         stage.setScene(scene);
         stage.show();
 

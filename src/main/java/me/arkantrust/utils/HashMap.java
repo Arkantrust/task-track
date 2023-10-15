@@ -1,95 +1,161 @@
 package me.arkantrust.utils;
 
-class Entry<K, V> {
+import java.util.NoSuchElementException;
 
-    K key;
-    V value;
+import lombok.Data;
+import lombok.NonNull;
 
-    public Entry(K key, V value) {
-    
-        this.key = key;    
+@Data
+class Bucket<K, V> {
+
+    private K key;
+    private V value;
+    private Bucket<K, V> next;
+
+    public Bucket(K key, V value) {
+
+        this.key = key;
         this.value = value;
-    
+        this.next = null;
+
     }
 
 }
 
+@Data
 public class HashMap<K, V> {
 
-    private static final int DEFAULT_CAPACITY = 16;
-    private LinkedList<Entry<K, V>>[] buckets;
+    private Bucket<K, V>[] buckets;
+    private int bucketsCount; // capacity of HashTable
+    private int size; // number of values stored
+    private static final int DEFAULT_CAPACITY = 10;
 
     public HashMap() {
 
         this(DEFAULT_CAPACITY);
-    
+
     }
 
     @SuppressWarnings("unchecked")
     public HashMap(int capacity) {
-    
-        this.buckets = (LinkedList<Entry<K, V>>[]) new LinkedList[capacity];
-    
-        for (int i = 0; i < capacity; i++) {
-    
-            buckets[i] = new LinkedList<>();
-    
-        }
-    
-    }
 
-    public void put(K key, V value) {
-    
-        int index = getIndex(key);
-        LinkedList<Entry<K, V>> bucket = buckets[index];
-
-        for (Entry<K, V> entry : bucket) {
-    
-            if (entry.key.equals(key)) {
-    
-                entry.value = value;
-    
-                return;
-    
-            }
-    
-        }
-
-        Entry<K, V> newEntry = new Entry<>(key, value);
-        bucket.add(newEntry);
-    
-    }
-
-    public V get(K key) {
-    
-        int index = getIndex(key);
-        LinkedList<Entry<K, V>> bucket = buckets[index];
-
-        for (Entry<K, V> entry : bucket) {
-    
-            if (entry.key.equals(key)) {
-    
-                return entry.value;
-    
-            }
-    
-        }
-
-        return null;
+        this.bucketsCount = capacity;
+        buckets = new Bucket[capacity];
+        this.size = 0;
 
     }
 
-    private int getIndex(K key) {
+    private int getBucketOf(K key) {
 
         int hashCode = key.hashCode();
-        return Math.abs(hashCode) % buckets.length;
+
+        return Math.abs(hashCode) % bucketsCount;
 
     }
 
-    public boolean isEmpty() {
+    public Boolean isEmpty() {
 
-        return buckets.length == 0;
-    
+        return size == 0;
+
+    }
+
+    public void put(@NonNull K key, @NonNull V value) {
+
+        int bucketIndex = getBucketOf(key);
+        Bucket<K, V> head = this.buckets[bucketIndex];
+
+        // if the key already exists, update the value
+        boolean found = false;
+        while (head != null && !found) {
+
+            if (head.getKey().equals(key)) {
+
+                head.setValue(value);
+                found = true;
+
+            }
+
+            head = head.getNext();
+
+        }
+
+        // if the key doesn't exist, add it
+        if (!found) {
+
+            this.size++;
+            head = buckets[bucketIndex];
+            Bucket<K, V> node = new Bucket<>(key, value);
+            node.setNext(head);
+            buckets[bucketIndex] = node;
+
+        }
+
+    }
+
+    public V get(@NonNull K key) {
+
+        Bucket<K, V> head = buckets[getBucketOf(key)];
+
+        while (head != null) {
+
+            if (head.getKey().equals(key)) {
+
+                return head.getValue();
+
+            }
+
+            head = head.getNext();
+
+        }
+
+        throw new NoSuchElementException("There is no value associated with " + key);
+    }
+
+    public V remove(@NonNull K key) {
+
+        int bucketIndex = getBucketOf(key);
+        V value = null;
+        Bucket<K, V> head = buckets[bucketIndex];
+        Bucket<K, V> previous = null;
+
+        while (head != null) {
+
+            if (head.getKey().equals(key)) {
+
+                break;
+
+            }
+
+            previous = head;
+
+            head = head.getNext();
+
+        }
+
+        if (head == null) {
+
+            value = null;
+
+        } else {
+
+            this.size--;
+
+            if (previous != null) {
+
+                previous.setNext(head.getNext()); // Replace nodes
+
+            } else {
+
+                buckets[bucketIndex] = head.getNext(); // deleting the head (first element) of this hash bucket
+
+            }
+
+            value = head.getValue();
+
+        }
+
+        return value;
+
     }
 
 }
