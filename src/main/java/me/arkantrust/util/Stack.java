@@ -1,4 +1,4 @@
-package me.arkantrust.utils;
+package me.arkantrust.util;
 
 public class Stack<E> {
 

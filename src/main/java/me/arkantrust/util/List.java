@@ -1,4 +1,4 @@
-package me.arkantrust.utils;
+package me.arkantrust.util;
 
 import java.util.Arrays;
 import java.util.Iterator;

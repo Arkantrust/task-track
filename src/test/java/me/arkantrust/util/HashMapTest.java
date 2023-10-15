@@ -1,4 +1,4 @@
-package me.arkantrust.utils;
+package me.arkantrust.util;
 
 import java.util.NoSuchElementException;
 
@@ -35,7 +35,7 @@ public class HashMapTest {
 
         map.put("one", 1);
         map.put("one", 2);
-        
+
         assertEquals(2, map.get("one"));
 
     }
