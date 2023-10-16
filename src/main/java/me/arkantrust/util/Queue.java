@@ -1,6 +1,6 @@
 package me.arkantrust.util;
 
-public class Queue<E> {
+public class Queue<E extends Comparable<E>> {
 
     private List<E> queue;
 

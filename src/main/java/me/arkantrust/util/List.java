@@ -3,24 +3,19 @@ package me.arkantrust.util;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class List<E> implements Iterable<E> {
+public class List<E extends Comparable<E>> implements Iterable<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
-    private Object[] data;
+    private E[] data;
     private int size;
 
     private E first;
     private E last;
 
+    @SuppressWarnings("unchecked")
     public List() {
 
-        this(DEFAULT_CAPACITY);
-
-    }
-
-    public List(int initialCapacity) {
-
-        this.data = new Object[initialCapacity];
+        this.data = (E[]) new Comparable[DEFAULT_CAPACITY];
         this.size = 0;
 
     }
@@ -49,9 +44,10 @@ public class List<E> implements Iterable<E> {
 
     }
 
+    @SuppressWarnings("unchecked")
     public void clear() {
 
-        this.data = new Object[DEFAULT_CAPACITY];
+        this.data = (E[]) new Comparable[DEFAULT_CAPACITY];
         this.size = 0;
         this.first = null;
         this.last = null;
@@ -118,7 +114,6 @@ public class List<E> implements Iterable<E> {
 
     }
 
-    @SuppressWarnings("unchecked")
     public E get(int index) {
 
         checkIndex(index);
@@ -133,7 +128,6 @@ public class List<E> implements Iterable<E> {
 
     }
 
-    @SuppressWarnings("unchecked")
     public void remove(int index) {
 
         checkIndex(index);
@@ -189,13 +183,30 @@ public class List<E> implements Iterable<E> {
 
     public int indexOf(E element) {
 
-        for (int i = 0; i < size; i++) {
+        int low = 0;
+        int high = this.size - 1;
 
-            if (data[i].equals(element))
-                return i;
+        while (low <= high) {
 
+            int mid = (low + high) / 2;
+            int cmp = data[mid].compareTo(element);
+            
+            if (cmp < 0) {
+            
+                low = mid + 1;
+            
+            } else if (cmp > 0) {
+            
+                high = mid - 1;
+            
+            } else {
+            
+                return mid;
+            
+            }
+        
         }
-
+    
         return -1;
 
     }

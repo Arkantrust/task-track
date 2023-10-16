@@ -1,6 +1,6 @@
 package me.arkantrust.util;
 
-public class Stack<E> {
+public class Stack<E  extends Comparable<E>> {
 
     private List<E> stack;
 
