@@ -16,10 +16,6 @@
     -fx-padding: 20;
 }
 
-.children {
-    -fx-background-color: #121212;
-}
-
 .button {
     -fx-background-color: #2196F3;
     -fx-padding: 10 20;
@@ -30,23 +26,30 @@
     -fx-background-color: #64B5F6;
 }
 
+#taskInputPane {
+    -fx-alignment: center;
+}
+
 #taskInput {
     -fx-background-color: #1E1E1E;
-    -fx-pref-width: 200;
-    -fx-height: 50;
+    -fx-alignment: center;
+    visibility: inherit;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
 }
 
-#taskListView {
+.list-view {
     -fx-background-color: #1E1E1E;
-    -fx-pref-width: 200;
+
 }
 
-#taskListView .list-cell {
+.list-view .list-cell {
     -fx-background-color: #1E1E1E;
     -fx-text-fill: white;
     -fx-font-size: 20;
 }
 
-#taskListView .cell {
+.list-view .cell {
     -fx-cell-size: 50;
+    -fx-background-color: #3E3E3E;
 }

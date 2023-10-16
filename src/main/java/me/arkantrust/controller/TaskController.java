@@ -12,7 +12,7 @@ public class TaskController {
     private TextField taskInput;
 
     @FXML
-    private ListView<String> taskListView;
+    private ListView<String> taskList;
 
     @FXML
     private void switchToSecondary() throws IOException {
@@ -28,7 +28,7 @@ public class TaskController {
 
         if (!task.isEmpty()) {
 
-            taskListView.getItems().add(task);
+            taskList.getItems().add(task);
             taskInput.clear();
 
         }
