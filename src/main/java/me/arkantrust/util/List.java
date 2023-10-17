@@ -190,24 +190,73 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
 
             int mid = (low + high) / 2;
             int cmp = data[mid].compareTo(element);
-            
+
             if (cmp < 0) {
-            
+
                 low = mid + 1;
-            
+
             } else if (cmp > 0) {
-            
+
                 high = mid - 1;
-            
+
             } else {
-            
+
                 return mid;
-            
+
             }
-        
+
         }
-    
+
         return -1;
+
+    }
+
+    public void sort() {
+
+        sort(data, 0, size - 1);
+
+    }
+
+    private void sort(E[] array, int start, int end) {
+
+        if (start < end) {
+
+            int pivot = partition(array, start, end);
+
+            sort(array, start, pivot - 1);
+            sort(array, pivot + 1, end);
+
+        }
+
+    }
+
+    private int partition(E[] array, int start, int end) {
+
+        E pivot = array[end];
+        int i = start - 1;
+
+        for (int j = start; j < end; j++) {
+
+            if (array[j].compareTo(pivot) < 0) {
+
+                i++;
+                swap(array, i, j);
+
+            }
+
+        }
+
+        swap(array, i + 1, end);
+
+        return i + 1;
+
+    }
+
+    private void swap(E[] array, int i, int j) {
+
+        E temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
 
     }
 

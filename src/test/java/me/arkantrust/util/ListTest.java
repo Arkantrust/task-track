@@ -200,4 +200,29 @@ public class ListTest {
 
     }
 
+    @Test
+    public void testSort() {
+
+        list.add(-1000000);
+        list.add(-2);
+        list.add(0);
+        list.add(1);
+        list.add(3);
+        list.add(400);
+        list.add(2309023);
+        list.add(34553*3232);
+
+        list.sort();
+
+        assertEquals(-1000000, list.get(0));
+        assertEquals(-2, list.get(1));
+        assertEquals(0, list.get(2));
+        assertEquals(1, list.get(3));
+        assertEquals(3, list.get(4));
+        assertEquals(400, list.get(5));
+        assertEquals(2309023, list.get(6));
+        assertEquals(111675296, list.get(7));
+
+    }
+
 }
