@@ -1,37 +1,71 @@
 package me.arkantrust.controller;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import me.arkantrust.App;
+import me.arkantrust.model.Task;
+import me.arkantrust.util.HashMap;
+import me.arkantrust.view.CreateTaskBox;
+import me.arkantrust.view.TaskView;
 
 public class TaskController {
 
-    @FXML
-    private TextField taskInput;
+    private static final HashMap<Integer, Task> tasks = new HashMap<>();
 
-    @FXML
-    private ListView<String> taskList;
+    private static Integer count = 1;
 
-    @FXML
-    private void switchToSecondary() throws IOException {
+    public static Task addTask() {
 
-        App.setRoot("secondary");
+        Task task = new CreateTaskBox().build();
+
+        if (task != null) {
+
+            task.setId(count);
+            tasks.put(count, task);
+            count++;
+
+        }
+
+        return task;
 
     }
 
-    @FXML
-    private void addTask() {
+    public static boolean removeTask(Integer id) {
 
-        String task = taskInput.getText().trim();
+        try {
 
-        if (!task.isEmpty()) {
+            tasks.remove(id);
+            return true;
 
-            taskList.getItems().add(task);
-            taskInput.clear();
+        } catch (Exception e) {
+
+            return false;
 
         }
+
+    }
+
+    public static Task editTask(Integer id) {
+        // TODO: test this method
+        Task task = tasks.get(id);
+
+        Task taskDetails = new CreateTaskBox().build();
+
+        if (taskDetails != null) {
+
+            task.setTitle(taskDetails.getTitle());
+            task.setDetails(taskDetails.getDetails());
+            task.setPriority(taskDetails.getPriority());
+            task.setDueDate(taskDetails.getDueDate());
+
+        }
+
+        return task;
+
+    }
+
+    public static void viewTask(Integer id) {
+
+        Task task = tasks.get(id);
+
+        new TaskView(task).build();
 
     }
 
