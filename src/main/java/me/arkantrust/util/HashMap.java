@@ -24,7 +24,7 @@ class Bucket<K, V> {
 public class HashMap<K, V> {
 
     private Bucket<K, V>[] buckets;
-    private int bucketsCount; // capacity of HashTable
+    private int bucketsCount; // capacity of HashMap
     private int size; // number of values stored
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -221,10 +221,9 @@ public class HashMap<K, V> {
 
     }
 
-    @SuppressWarnings("unchecked")
-    public K[] keys() {
+    public List<K> keys() {
 
-        K[] keys = (K[]) new Object[size];
+        List<K> keys = new List<>();
 
         int index = 0;
 
@@ -234,7 +233,7 @@ public class HashMap<K, V> {
 
             while (head != null) {
 
-                keys[index++] = head.getKey();
+                keys.set(index++, head.getKey());
 
                 head = head.getNext();
 
@@ -246,10 +245,9 @@ public class HashMap<K, V> {
 
     }
 
-    @SuppressWarnings("unchecked")
-    public V[] values() {
+    public List<V> values() {
 
-        V[] values = (V[]) new Object[size];
+        List<V> values = new List<>();
 
         int index = 0;
 
@@ -259,7 +257,7 @@ public class HashMap<K, V> {
 
             while (head != null) {
 
-                values[index++] = head.getValue();
+                values.set(index++, head.getValue());
 
                 head = head.getNext();
 
