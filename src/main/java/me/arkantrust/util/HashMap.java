@@ -1,7 +1,5 @@
 package me.arkantrust.util;
 
-import java.util.NoSuchElementException;
-
 import lombok.Data;
 import lombok.NonNull;
 
@@ -53,13 +51,13 @@ public class HashMap<K, V> {
 
     }
 
-    public Boolean isEmpty() {
+    public boolean isEmpty() {
 
         return size == 0;
 
     }
 
-    public void put(@NonNull K key, @NonNull V value) {
+    public V put(@NonNull K key, @NonNull V value) {
 
         int bucketIndex = getBucketOf(key);
         Bucket<K, V> head = this.buckets[bucketIndex];
@@ -90,6 +88,8 @@ public class HashMap<K, V> {
 
         }
 
+        return value;
+
     }
 
     public V get(@NonNull K key) {
@@ -108,7 +108,7 @@ public class HashMap<K, V> {
 
         }
 
-        throw new NoSuchElementException("There is no value associated with " + key);
+        throw new NullPointerException("There is no value associated with " + key);
     }
 
     public V remove(@NonNull K key) {
@@ -155,6 +155,144 @@ public class HashMap<K, V> {
         }
 
         return value;
+
+    }
+
+    public int size() {
+
+        return this.size;
+
+    }
+
+    public boolean containsKey(@NonNull K key) {
+
+        int bucketIndex = getBucketOf(key);
+        Bucket<K, V> head = buckets[bucketIndex];
+
+        while (head != null) {
+
+            if (head.getKey().equals(key)) {
+
+                return true;
+
+            }
+
+            head = head.getNext();
+
+        }
+
+        return false;
+
+    }
+
+    public boolean containsValue(@NonNull V value) {
+
+        for (int i = 0; i < bucketsCount; i++) {
+
+            Bucket<K, V> head = buckets[i];
+
+            while (head != null) {
+
+                if (head.getValue().equals(value)) {
+
+                    return true;
+
+                }
+
+                head = head.getNext();
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public void clear() {
+
+        for (int i = 0; i < bucketsCount; i++) {
+
+            buckets[i] = null;
+
+        }
+
+        size = 0;
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public K[] keys() {
+
+        K[] keys = (K[]) new Object[size];
+
+        int index = 0;
+
+        for (int i = 0; i < bucketsCount; i++) {
+
+            Bucket<K, V> head = buckets[i];
+
+            while (head != null) {
+
+                keys[index++] = head.getKey();
+
+                head = head.getNext();
+
+            }
+
+        }
+
+        return keys;
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public V[] values() {
+
+        V[] values = (V[]) new Object[size];
+
+        int index = 0;
+
+        for (int i = 0; i < bucketsCount; i++) {
+
+            Bucket<K, V> head = buckets[i];
+
+            while (head != null) {
+
+                values[index++] = head.getValue();
+
+                head = head.getNext();
+
+            }
+
+        }
+
+        return values;
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public Bucket<K, V>[] entries() {
+        
+        Bucket<K, V>[] entries = (Bucket<K, V>[]) new Object[size];
+
+        int index = 0;
+
+        for (int i = 0; i < bucketsCount; i++) {
+
+            Bucket<K, V> head = buckets[i];
+
+            while (head != null) {
+
+                entries[index++] = new Bucket<>(head.getKey(), head.getValue());
+
+                head = head.getNext();
+
+            }
+
+        }
+
+        return entries;
 
     }
 
