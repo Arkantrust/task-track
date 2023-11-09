@@ -3,7 +3,7 @@ package me.arkantrust.util;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class List<E extends Comparable<E>> implements Iterable<E> {
+public class List<E> implements Iterable<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
     private E[] data;
@@ -15,7 +15,7 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
     @SuppressWarnings("unchecked")
     public List() {
 
-        this.data = (E[]) new Comparable[DEFAULT_CAPACITY];
+        this.data = (E[]) new Object[DEFAULT_CAPACITY];
         this.size = 0;
 
     }
@@ -47,7 +47,7 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
     @SuppressWarnings("unchecked")
     public void clear() {
 
-        this.data = (E[]) new Comparable[DEFAULT_CAPACITY];
+        this.data = (E[]) new Object[DEFAULT_CAPACITY];
         this.size = 0;
         this.first = null;
         this.last = null;
@@ -104,13 +104,14 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
         }
 
         data[size++] = element;
+        size++;
 
     }
 
     private void checkIndex(int index) {
 
         if (index < 0 || index > this.size - 1 || this.size == 0)
-            throw new IndexOutOfBoundsException("Index" + index + " out of bounds for size " + this.size + ".");
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for size " + this.size + ".");
 
     }
 
@@ -183,13 +184,25 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
 
     public int indexOf(E element) {
 
+        if (element == null)
+            throw new IllegalArgumentException("Element cannot be null.");
+
+        if (isEmpty())
+            return -1;
+
+        if (!contains(element))
+            return -1;
+
+        if (!(data[0] instanceof Comparable))
+            throw new IllegalArgumentException("Element must implement Comparable interface.");
+
         int low = 0;
         int high = this.size - 1;
 
         while (low <= high) {
 
             int mid = (low + high) / 2;
-            int cmp = data[mid].compareTo(element);
+            int cmp = ((Comparable) data[mid]).compareTo(element);
 
             if (cmp < 0) {
 
@@ -211,13 +224,18 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
 
     }
 
+    @SuppressWarnings("unchecked")
     public void sort() {
 
-        sort(data, 0, size - 1);
+        if (size == 0)
+            return;
+
+        if (data[0] instanceof Comparable)
+            sort((Comparable<E>[]) data, 0, size - 1);
 
     }
 
-    private void sort(E[] array, int start, int end) {
+    private void sort(Comparable<E>[] array, int start, int end) {
 
         if (start < end) {
 
@@ -230,9 +248,9 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
 
     }
 
-    private int partition(E[] array, int start, int end) {
+    private int partition(Comparable[] array, int start, int end) {
 
-        E pivot = array[end];
+        Comparable pivot = array[end];
         int i = start - 1;
 
         for (int j = start; j < end; j++) {
@@ -252,11 +270,25 @@ public class List<E extends Comparable<E>> implements Iterable<E> {
 
     }
 
-    private void swap(E[] array, int i, int j) {
+    private void swap(Comparable[] array, int i, int j) {
 
-        E temp = array[i];
+        Comparable temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+
+    }
+
+    public static List<Object> from(Object[] array) {
+
+        List list = new List<>();
+
+        for (Object element : array) {
+
+            list.add(element);
+
+        }
+
+        return list;
 
     }
 
