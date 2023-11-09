@@ -1,19 +1,35 @@
-package me.arkantrust.controller;
+package me.arkantrust.repository;
 
 import me.arkantrust.model.Task;
 import me.arkantrust.util.HashMap;
-import me.arkantrust.view.CreateTaskBox;
 import me.arkantrust.view.TaskView;
 
-public class TaskController {
+public class TaskRepository {
 
-    private static final HashMap<Integer, Task> tasks = new HashMap<>();
+    private static TaskRepository instance;
 
     private static Integer count = 1;
 
-    public static Task addTask() {
+    private final HashMap<Integer, Task> tasks;
 
-        Task task = new CreateTaskBox().build();
+    public static TaskRepository getInstance() {
+
+        if (instance == null)
+            instance = new TaskRepository();
+
+        return instance;
+
+    }
+
+    private TaskRepository() {
+
+        tasks = new HashMap<>();
+
+    }
+
+    public Task addTask() {
+
+        Task task = new TaskView().build();
 
         if (task != null) {
 
@@ -27,7 +43,9 @@ public class TaskController {
 
     }
 
-    public static boolean removeTask(Integer id) {
+    // This method is an insult to software engineering
+    // TODO: Handle error properly
+    public boolean removeTask(Integer id) {
 
         try {
 
@@ -42,11 +60,12 @@ public class TaskController {
 
     }
 
-    public static Task editTask(Integer id) {
+    public Task editTask(Integer id) {
+
         // TODO: test this method
         Task task = tasks.get(id);
 
-        Task taskDetails = new CreateTaskBox().build();
+        Task taskDetails = new TaskView().build();
 
         if (taskDetails != null) {
 
@@ -61,11 +80,15 @@ public class TaskController {
 
     }
 
-    public static void viewTask(Integer id) {
+    public Task getTaskById(Integer id) {
 
-        Task task = tasks.get(id);
+        return tasks.get(id);
 
-        new TaskView(task).build();
+    }
+
+    public Task[] getTasks() {
+
+        return tasks.values();
 
     }
 
