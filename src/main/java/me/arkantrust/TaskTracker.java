@@ -1,6 +1,6 @@
 package me.arkantrust;
 
-import me.arkantrust.controller.HomeController;
+import me.arkantrust.view.HomeView;
 
 /**
  * The <code>TaskTracker</code> class is the entry point for the TaskTracker
@@ -21,7 +21,7 @@ public class TaskTracker {
      */
     public static void main(String[] args) {
 
-        new HomeController().build();
+        new HomeView();
 
     }
 
