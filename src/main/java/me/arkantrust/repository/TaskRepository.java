@@ -2,6 +2,7 @@ package me.arkantrust.repository;
 
 import me.arkantrust.model.Task;
 import me.arkantrust.util.HashMap;
+import me.arkantrust.util.List;
 import me.arkantrust.view.TaskView;
 
 public class TaskRepository {
@@ -27,9 +28,7 @@ public class TaskRepository {
 
     }
 
-    public Task addTask() {
-
-        Task task = new TaskView().build();
+    public Task addTask(Task task) {
 
         if (task != null) {
 
@@ -86,7 +85,7 @@ public class TaskRepository {
 
     }
 
-    public Task[] getTasks() {
+    public List<Task> getTasks() {
 
         return tasks.values();
 

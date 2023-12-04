@@ -1,6 +1,7 @@
 package me.arkantrust.view.io;
 
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The IO class provides methods for reading user input, printing messages in
@@ -14,6 +15,7 @@ public class IO {
     protected static final String BLUE = "\033[0;34m";
     protected static final String RED = "\033[01;31m";
     protected static final String BOLD = "\033[0;1m";
+    protected static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Wraps the <code>nextLine()</code> method from the
@@ -86,42 +88,43 @@ public class IO {
     }
 
     /**
-     * The function reads a user input and validates it to ensure it is a number
-     * between 1 and 3.
+     * The function reads a user input and validates it to ensure it is a number in
+     * the range specified in regex.
+     * 
+     * @param range The range parameter is a string that represents the range of
+     *              numbers that the user can enter.
      * 
      * @return The method is returning the Integer read from stdin.
+     * 
+     * 
+     * <h2>Example</h2>
+     * <pre> {@code
+     * // The user can only enter 1, 2 or 3
+     * Integer input = readInt("^[1-3]$");
+     * 
+     * } </pre>
+     * 
+     * <h2>Example 2</h2>
+     * <pre> {@code
+     * // The user can enter any positive number
+     * Integer input = readInt("^[1-9][0-9]*$");
+     * 
+     * } </pre>
      */
-    public Integer readMenuItem() {
+    public Integer readInt(String range) {
 
-        boolean valid = false;
+        String input = readLine();
 
-        while (!valid) {
+        while (!input.matches(range)) {
 
-            try {
-
-                Integer choice = Integer.valueOf(readLine());
-
-                if (choice < 1 || choice > 4) {
-
-                    printError("Invalid input. Please enter a number between 1 and 3");
-                    printInstruction("$ ");
-
-                }
-
-                return choice;
-
-            } catch (NumberFormatException e) {
-
-                printError("Invalid input. Please enter a number between 1 and 3");
-                printInstruction("$ ");
-
-            }
-
+            printError("Invalid input, please try again: ");
+            printBlue("$ ");
+            input = readLine();
+            
         }
 
-        return null; // This will never be reached
+        return Integer.valueOf(input);
 
     }
 
 }
-

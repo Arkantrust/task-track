@@ -29,4 +29,14 @@ public enum Priority {
 
     }
 
+    public static Priority valueOf(int value) {
+
+        for (Priority priority : Priority.values())
+            if (priority.value() == value)
+                return priority;
+
+        return null;
+
+    }
+
 }
